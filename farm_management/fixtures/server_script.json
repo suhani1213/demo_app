@@ -1,0 +1,21 @@
+[
+ {
+  "allow_guest": 0,
+  "api_method": null,
+  "cron_format": null,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Server Script",
+  "doctype_event": "Before Save",
+  "enable_rate_limit": 0,
+  "event_frequency": "All",
+  "modified": "2025-07-15 12:14:07.196734",
+  "module": null,
+  "name": "Fertilizer Plan on Save",
+  "rate_limit_count": 5,
+  "rate_limit_seconds": 86400,
+  "reference_doctype": "Plantation Master",
+  "script": "frappe.msgprint(\"✅ Script started\")\n\ndoc.fertilizer_plan = []\n\n# 1. Get farm area\nfarm_area = 1\nif doc.farm:\n    area = frappe.db.get_value(\"Farm Master\", doc.farm, \"farm_area_in_acres\")\n    frappe.msgprint(f\"🌾 Farm Area Found: {area}\")\n    if area:\n        farm_area = float(area)\n\n# 2. Get suggestions from Crop\nsuggestions = frappe.get_all(\n    \"Fertilizer Suggestion\",\n    filters={\"parent\": doc.crop},\n    fields=[\"fertilizer_name\", \"quantity\", \"days\", \"dose\", \"units_of_measure\"]\n)\n\n# 3. Populate fertilizer_plan\nfor s in suggestions:\n    row = doc.append(\"fertilizer_plan\", {})\n    row.fertilizer_name = s.fertilizer_name\n    row.dose = s.get(\"dose\", \"\")\n    row.days = s.get(\"days\", \"\")\n    row.units_of_measure = s.get(\"units_of_measure\", \"\")\n\n    try:\n        row.quantity = float(s.quantity) * farm_area\n        frappe.msgprint(f\"🧪 {s.fertilizer_name}: {s.quantity} × {farm_area} = {row.quantity}\")\n    except:\n        row.quantity = s.quantity\n\n    if doc.plantation_date and s.days:\n        row.apply_date = frappe.utils.add_days(doc.plantation_date, s.days)\n\n# 4. Calculate total\ndoc.fertilizer_quantity = sum(float(r.quantity or 0) for r in doc.fertilizer_plan)\nfrappe.msgprint(f\"💡 Total Quantity: {doc.fertilizer_quantity}\")\n\n# 5. Copy into fertilizer_calculation table\ndoc.fertilizer_calculation = []\n\nfor row in doc.fertilizer_plan:\n    calc_row = doc.append(\"fertilizer_calculation\", {})\n    calc_row.fertilizer_name = row.get(\"fertilizer_name\", \"\")\n    calc_row.dose = row.get(\"dose\", \"\")\n    calc_row.days = row.get(\"days\", \"\")\n    calc_row.quantity = row.get(\"quantity\", 0)\n    calc_row.units_of_measure = row.get(\"units_of_measure\", \"\")\n    calc_row.suggested_date = row.get(\"apply_date\") or row.get(\"suggested_date\", \"\")\n\n# 6. Create Fertilizer Application entries\nfor row in doc.fertilizer_plan:\n    if not row.fertilizer_name or not row.apply_date:\n        continue  # skip incomplete rows\n\n    # Check if a similar record already exists\n    existing = frappe.get_all(\n        \"Fertilizer Application\",\n        filters={\n            \"plantation\": doc.name,\n            \"fertilizer_name\": row.fertilizer_name,\n            \"suggested_date\": row.get(\"apply_date\")\n        },\n        limit=1\n    )\n\n    if existing:\n        frappe.msgprint(f\"🔁 Already exists: {row.fertilizer_name} on {row.apply_date}\")\n        continue\n\n    # Create new Fertilizer Application record\n    app_doc = frappe.get_doc({\n        \"doctype\": \"Fertilizer Application\",\n        \"plantation\": doc.name,\n        \"crop\": doc.crop,\n        \"fertilizer_name\": row.fertilizer_name,\n        \"dose\": row.get(\"dose\", \"\"),\n        \"days\": row.get(\"days\", \"\"),\n        \"suggested_date\": row.get(\"apply_date\"),\n        \"quantity\": row.quantity,\n        \"units_of_measure\": row.get(\"units_of_measure\", \"\")\n    })\n    app_doc.insert()\n    frappe.msgprint(f\"✅ Created: {row.fertilizer_name} on {row.apply_date}\")\n\n",
+  "script_type": "DocType Event"
+ }
+]

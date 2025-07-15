@@ -1,0 +1,66 @@
+{
+ "doctype": "DocType",
+ "name": "FertilizerPlan",
+ "module": "Farm Management",
+ "autoname": "field:crop",
+ "fields": [
+   {
+     "fieldname": "crop",
+     "label": "Crop",
+     "fieldtype": "Link",
+     "options": "Crop Master"
+   },
+   {
+     "fieldname": "fertilizer_type",
+     "label": "Fertilizer Type",
+     "fieldtype": "Data"
+{
+ "doctype": "DocType",
+ "name": "FertilizerPlan",
+ "module": "Farm Management",
+ "autoname": "field:crop",
+ "fields": [
+   {
+     "fieldname": "crop",
+     "label": "Crop",
+     "fieldtype": "Link",
+     "options": "Crop Master"
+   },
+   {
+     "fieldname": "fertilizer_type",
+     "label": "Fertilizer Type",
+     "fieldtype": "Data"
+   },
+{
+ "doctype": "DocType",
+ "name": "FertilizerPlan",
+ "module": "Farm Management",
+ "autoname": "field:crop",
+ "fields": [
+   {
+     "fieldname": "crop",
+     "label": "Crop",
+     "fieldtype": "Link",
+     "options": "Crop Master"
+   },
+   {
+     "fieldname": "fertilizer_type",
+     "label": "Fertilizer Type",
+     "fieldtype": "Data"
+   },
+   {
+     "fieldname": "application_date",
+     "label": "Application Date",
+     "fieldtype": "Date"
+   }
+ ],
+ "permissions": [
+   {
+     "role": "System Manager",
+     "read": 1,
+     "write": 1,
+     "create": 1,
+     "delete": 1
+   }
+ ]
+}

@@ -1,0 +1,121 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-07-14 00:05:26.949670",
+ "custom": 1,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "plantation_master_section",
+  "farm",
+  "crop",
+  "plantation_date",
+  "fertilizer_quantitykg",
+  "fertilizer_plan",
+  "farmer_name",
+  "village",
+  "dist",
+  "area",
+  "soil_type",
+  "fertilizer_calculation"
+ ],
+ "fields": [
+  {
+   "fieldname": "plantation_master_section",
+   "fieldtype": "Section Break",
+   "label": "Plantation Master"
+  },
+  {
+   "fieldname": "farm",
+   "fieldtype": "Link",
+   "label": "Farm",
+   "options": "Farm Master"
+  },
+  {
+   "fieldname": "crop",
+   "fieldtype": "Link",
+   "label": "Crop",
+   "options": "Crop Master"
+  },
+  {
+   "fieldname": "plantation_date",
+   "fieldtype": "Date",
+   "label": "Plantation Date"
+  },
+  {
+   "fieldname": "fertilizer_quantitykg",
+   "fieldtype": "Float",
+   "label": "Fertilizer Quantity(kg)"
+  },
+  {
+   "fieldname": "fertilizer_plan",
+   "fieldtype": "Table",
+   "label": "Fertilizer Plan",
+   "options": "Fertilizer Plan"
+  },
+  {
+   "fetch_from": "farm.farmer_name",
+   "fieldname": "farmer_name",
+   "fieldtype": "Data",
+   "label": "Farmer Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "farm.village",
+   "fieldname": "village",
+   "fieldtype": "Data",
+   "label": "Village"
+  },
+  {
+   "fetch_from": "farm.dist",
+   "fieldname": "dist",
+   "fieldtype": "Data",
+   "label": "Dist"
+  },
+  {
+   "fetch_from": "farm.farm_area_in_acres",
+   "fieldname": "area",
+   "fieldtype": "Float",
+   "label": "Area"
+  },
+  {
+   "fetch_from": "farm.soil_type",
+   "fieldname": "soil_type",
+   "fieldtype": "Data",
+   "label": "Soil Type"
+  },
+  {
+   "fieldname": "fertilizer_calculation",
+   "fieldtype": "Table",
+   "label": "Fertilizer Calculation",
+   "options": "Fertilizer Calculation"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-07-15 12:02:08.729592",
+ "modified_by": "Administrator",
+ "module": "Farm Management",
+ "name": "Plantation Master",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

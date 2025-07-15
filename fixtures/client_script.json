@@ -1,0 +1,25 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Plantation Master",
+  "enabled": 0,
+  "modified": "2025-07-15 02:40:50.913825",
+  "module": null,
+  "name": "Generate Fertilizer Plan",
+  "script": "frappe.ui.form.on('Plantation Master', {\n    refresh(frm) {\n        frm.add_custom_button('Generate Fertilizer Plan', () => {\n            frappe.call({\n                method: 'farm_management.utils.fertilizer_utils.generate_fertilizer_plan',\n                args: {\n                    plantation_name: frm.doc.name\n                },\n                callback() {\n                    frappe.msgprint('Fertilizer Plan Generated!');\n                    frm.reload_doc();\n                }\n            });\n        });\n    }\n});",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Plantation Master",
+  "enabled": 0,
+  "modified": "2025-07-15 11:43:03.430053",
+  "module": null,
+  "name": "Reload Fertilizer Plan on Save",
+  "script": "frappe.ui.form.on('Plantation Master', {\n\trefresh(frm) {\n        frm.reload_doc();  // Refresh the form to show updated child table\n\t}\n})",
+  "view": "Form"
+ }
+]
+
