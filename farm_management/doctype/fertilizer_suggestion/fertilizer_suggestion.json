@@ -1,0 +1,57 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-07-14 10:37:48.981296",
+ "custom": 1,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "dose",
+  "date",
+  "fertilizer_name",
+  "quantity",
+  "units_of_measure"
+ ],
+ "fields": [
+  {
+   "fieldname": "dose",
+   "fieldtype": "Data",
+   "label": "Dose"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Int",
+   "label": "Days"
+  },
+  {
+   "fieldname": "fertilizer_name",
+   "fieldtype": "Data",
+   "label": "Fertilizer Name"
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Float",
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "units_of_measure",
+   "fieldtype": "Data",
+   "label": "Units of Measure"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-07-14 12:09:25.197232",
+ "modified_by": "Administrator",
+ "module": "Farm Management",
+ "name": "Fertilizer Suggestion",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
