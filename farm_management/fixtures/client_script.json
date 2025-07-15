@@ -7,7 +7,7 @@
   "modified": "2025-07-15 02:40:50.913825",
   "module": null,
   "name": "Generate Fertilizer Plan",
-  "script": "frappe.ui.form.on('Plantation Master', {\n    refresh(frm) {\n        frm.add_custom_button('Generate Fertilizer Plan', () => {\n            frappe.call({\n                method: 'farm_management.farm_management.utils.fertilizer_utils.generate_fertilizer_plan',\n                args: {\n                    plantation_name: frm.doc.name\n                },\n                callback() {\n                    frappe.msgprint('Fertilizer Plan Generated!');\n                    frm.reload_doc();\n                }\n            });\n        });\n    }\n});\n",
+  "script": "frappe.ui.form.on('Plantation Master', {\n    refresh(frm) {\n        frm.add_custom_button('Generate Fertilizer Plan', () => {\n            frappe.call({\n                method: 'farm_management.utils.fertilizer_utils.generate_fertilizer_plan',\n                args: {\n                    plantation_name: frm.doc.name\n                },\n                callback() {\n                    frappe.msgprint('Fertilizer Plan Generated!');\n                    frm.reload_doc();\n                }\n            });\n        });\n    }\n});",
   "view": "Form"
  },
  {
@@ -22,3 +22,4 @@
   "view": "Form"
  }
 ]
+
